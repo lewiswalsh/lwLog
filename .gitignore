@@ -1,0 +1,5 @@
+html/
+node_modules/
+lwlog.db
+npm-debug.log
+Thumbs.db

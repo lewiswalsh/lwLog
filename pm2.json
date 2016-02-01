@@ -1,0 +1,14 @@
+{
+   "apps" : [
+      {
+         "name"         : "lwLog",
+         "script"       : "app.js",
+         "node_args"    : "--use_strict",
+         "ignore_watch" : ["node_modules"],
+         "watch"        : false,
+         "exec_mode"    : "cluster_mode",
+         "instances"    : 0,
+         "env"          : {}
+      }
+   ]
+}
