@@ -72,7 +72,6 @@ POST /v1/log
 ```
 
 ## Todo
-* Permit https via switch in the config
 * Free-text search
 * Export as CSV
 * Provide triggers so certain entries are emailed/POSTed elsewhere

@@ -70,20 +70,32 @@
 
     getLog : function(filter, query){
       let sql = ["SELECT * FROM "+ LOG_TABLE_NAME +" WHERE 1"];
+      let parameters = {};
       return new Promise((resolve, reject) => {
-        if(query.hasOwnProperty('class')){     sql.push("AND class LIKE '%"+ query.class +"%'"); }
-        if(query.hasOwnProperty('type')){      sql.push("AND type LIKE '%"+ query.type +"%'"); }
-        if(query.hasOwnProperty('source')){    sql.push("AND source LIKE '%"+ query.source +"%'"); }
+        if(query.hasOwnProperty('class')){
+          sql.push("AND class LIKE $class");
+          parameters['$class'] = '%'+ query.class +'%';
+        }
+        if(query.hasOwnProperty('type')){
+          sql.push("AND class LIKE $type");
+          parameters['$type'] = '%'+ query.type +'%';
+        }
+        if(query.hasOwnProperty('source')){
+          sql.push("AND class LIKE $source");
+          parameters['$source'] = '%'+ query.source +'%';
+        }
         if(query.hasOwnProperty('startdate')){ sql.push("AND dstamp >= "+ moment(query.startdate, "YYYY-MM-DD").unix()); }
         if(query.hasOwnProperty('enddate')){   sql.push("AND dstamp < "+ moment(query.enddate, "YYYY-MM-DD").unix()); }
         if(filter){
           if(filter === 'newest' || filter === 'latest'){ sql.push('ORDER BY dstamp DESC LIMIT 0,1'); }
           if(filter === 'oldest'){ sql.push('ORDER BY dstamp ASC LIMIT 0,1'); }
         } else {
-          if(query.hasOwnProperty('sortby')){ sql.push('ORDER BY '+ query.sortby); }
-          else { sql.push('ORDER BY dstamp DESC'); }
+          if(query.hasOwnProperty('sortby')){
+            sql.push('ORDER BY $sortby');
+            parameters['$sortby'] = query.sortby;
+          } else { sql.push('ORDER BY dstamp DESC'); }
         }
-        db.dbGetAll(sql.join(' ')+';').then((rows) => {
+        db.dbGetAll(sql.join(' ')+';', parameters).then((rows) => {
           return (filter ? resolve(rows[0]) : resolve(rows));
         }).catch((err) => { return reject(err); });
       });
@@ -91,7 +103,7 @@
 
     getLogCount : function(){
       return new Promise((resolve, reject) => {
-        db.dbGetSingleField(STORED_PROCEDURES.totalLogCount(), 'total_log_entries').then((log_count) => {
+        db.dbGetSingleField(STORED_PROCEDURES.totalLogCount(), {}, 'total_log_entries').then((log_count) => {
           return resolve(log_count);
         }).catch((err) => { return reject(err); });
       });

@@ -6,28 +6,28 @@
 
   module.exports = {
 
-    dbGetAll : function(sql){
+    dbGetAll : function(sql, parameters){
       return new Promise((resolve, reject) => {
-        sqliteDB.all(sql, (err, rows) => {
+        sqliteDB.all(sql, parameters, (err, rows) => {
           if(err){ return reject(err); }
           return resolve(rows);
         });
       });
     },
 
-    dbGetSingle : function(sql){
+    dbGetSingle : function(sql, parameters){
       return new Promise((resolve, reject) => {
-        sqliteDB.get(sql, (err, row) => {
+        sqliteDB.get(sql, parameters, (err, row) => {
           if(err){ return reject(err); }
           return resolve(row);
         });
       });
     },
 
-    dbGetSingleField : function(sql, field){
+    dbGetSingleField : function(sql, parameters, field){
       let _self = this;
       return new Promise((resolve, reject) => {
-        _self.dbGetSingle(sql).then((row) => {
+        _self.dbGetSingle(sql, parameters).then((row) => {
           return resolve(row[field])
       }).catch((err) => { return reject(err); });
       });
