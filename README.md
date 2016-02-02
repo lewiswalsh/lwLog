@@ -2,7 +2,7 @@
 A simple centralised logger as a RESTful service. Because it's just an API accessed over http you can read or write to it however you like. Data is stored in an SQLite3 database file, the name of which can be set in the config.
 
 ## Install
-Download or clone somewhere. Ensure NodeJS (v4 or higher) and NPM are installed. Run using `node app.js` Probably best if run with [PM2](http://pm2.keymetrics.io/) or [Forever](https://github.com/foreverjs/forever).
+Download or clone somewhere. Ensure NodeJS (v4 or higher) and NPM are installed. Ensure you run `npm install` first, then launch using `node app.js` Probably best if run with [PM2](http://pm2.keymetrics.io/) or [Forever](https://github.com/foreverjs/forever).
 
 ## Config
 Edit the `config.js` file
