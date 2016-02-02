@@ -11,10 +11,12 @@
     route.use(bodyparser.json());   // to support JSON-encoded bodies
     route.use(bodyparser.urlencoded({ extended : true })); // to support URL-encoded bodies
 
-    // Allow CORS
+    // CORS
     route.use(function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      if(config.enable_cors){
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      }
       next();
     });
 

@@ -10,7 +10,8 @@ Edit the `config.js` file
 | Key | Description |
 | --- | ----------- |
 | database | String containing the name of the database file. If this doesn't exist it will be created. *Default: lwlog.db* |
-| port | port number the service will operate on. *Default: 3000* |
+| port | Port number the service will operate on. *Default: 3000* |
+| enable_cors | Enable CORS to access this across domains. *Default: true* |
 | access_tokens | This is an array of access tokens used to access the service. These are just strings, make them as long and random as you like. |
 
 ## API
@@ -71,7 +72,6 @@ POST /v1/log
 ```
 
 ## Todo
-* Allow CORS to be enabled/disabled in the config
 * Permit https via switch in the config
 * Free-text search
 * Export as CSV
