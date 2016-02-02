@@ -27,6 +27,7 @@ Retrieve the log. Optional parameters:
 | source | Restrict to given source |
 | startdate | Set earliest date to return in the format `YYYY-MM-DD` |
 | enddate | Set latest date to return in the format `YYYY-MM-DD` |
+| search | Free text search |
 | sortby | Set any field as a sort field from the POST arguments below, plus `id` or `dstamp` |
 
 
@@ -72,6 +73,5 @@ POST /v1/log
 ```
 
 ## Todo
-* Free-text search
 * Export as CSV
 * Provide triggers so certain entries are emailed/POSTed elsewhere

@@ -84,6 +84,20 @@
           sql.push("AND class LIKE $source");
           parameters['$source'] = '%'+ query.source +'%';
         }
+        if(query.hasOwnProperty('search')){
+          sql.push([
+            "AND (",
+              "class LIKE $search",
+              "OR ref LIKE $search",
+              "OR type LIKE $search",
+              "OR title LIKE $search",
+              "OR description LIKE $search",
+              "OR data LIKE $search",
+              "OR source LIKE $search",
+            ")"
+          ].join(' '));
+          parameters['$search'] = '%'+ query.search +'%';
+        }
         if(query.hasOwnProperty('startdate')){ sql.push("AND dstamp >= "+ moment(query.startdate, "YYYY-MM-DD").unix()); }
         if(query.hasOwnProperty('enddate')){   sql.push("AND dstamp < "+ moment(query.enddate, "YYYY-MM-DD").unix()); }
         if(filter){
