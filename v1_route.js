@@ -34,23 +34,20 @@
 
 
     route.get('/', (req, res, next) => {
-      //let err = new Error('This is an error!');
-      //let throw_err = false;
-      //if(throw_err){ return next(err); } // This passes any errors to our express error handler.
-      return res.status(404).jsonp({error:"that won't work"});
+      return res.status(500).jsonp({error:"that won't work"});
     });
 
     route.get('/log/:filter?', (req, res, next) => {
       mLog.getLog(req.params.filter, req.query).then((log) => {
         return res.status(200).jsonp(log);
-      }).catch((err) => { console.log(err); });
+      }).catch((err) => { return res.status(500).jsonp({error:err}); });
     });
 
     route.post('/log', (req, res, next) => {
-      mLog.addLog(req.body).then((msg) => {
+      mLog.addLog(req.body).then((lastID, msg) => {
         if(msg){ console.log(msg); }
-        res.status(200).jsonp({success:"log entry added"});
-      });
+        res.status(200).jsonp({success:"log entry added",lastID:lastID});
+      }).catch((err) => { return res.status(500).jsonp({error:err}); });
     });
 
   }

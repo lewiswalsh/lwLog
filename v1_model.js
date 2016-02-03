@@ -129,7 +129,7 @@
         qdata.id     = cuid();
         qdata.dstamp = Math.floor(Date.now() / 1000);
         db.dbInsert(LOG_TABLE_NAME, qdata).then(() => {
-          return resolve('LOG_ENTRY_ADDED');
+          return resolve(this.lastID, 'LOG_ENTRY_ADDED');
         }).catch((err) => { return reject(err); });
       });
     },
